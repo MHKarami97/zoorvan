@@ -461,6 +461,9 @@ video {
   gap: 6px;
   font-weight: 400;
 }
+.auto-width {
+  width: auto;
+}
 .form-group input[type="file"].has-dropzone {
   border: 2px dashed var(--color-bebe);
   background: var(--color-faint);
@@ -740,7 +743,11 @@ body {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  background: linear-gradient(
+    135deg,
+    var(--color-rausch),
+    var(--color-rausch-600)
+  );
   color: white;
   padding: 14px 20px;
   border-radius: 16px;
@@ -813,4 +820,84 @@ body {
 
 .close-install:hover {
   opacity: 1;
+}
+
+.file-upload {
+  position: relative;
+}
+
+.file-upload__input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.file-upload__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 148px;
+  padding: 20px;
+  border: 1px dashed var(--color-bebe);
+  border-radius: var(--radius-cards);
+  background: var(--color-faint);
+  cursor: pointer;
+  text-align: center;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    transform 0.2s;
+}
+
+.file-upload__label:hover {
+  border-color: var(--color-rausch);
+  background: #fff5f7;
+}
+
+.file-upload__input:focus + .file-upload__label {
+  outline: 2px solid var(--color-rausch);
+  outline-offset: 2px;
+}
+
+.file-upload.is-dragover .file-upload__label {
+  border-color: var(--color-rausch);
+  background: #fff1f4;
+  transform: translateY(-1px);
+}
+
+.file-upload__icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.file-upload__text {
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--color-hof);
+}
+
+.file-upload__subtext {
+  font-size: var(--text-caption);
+  color: var(--color-foggy);
+}
+
+.file-upload__meta {
+  margin-top: 10px;
+}
+
+.file-upload__status {
+  display: inline-block;
+  font-size: var(--text-caption);
+  color: var(--color-foggy);
+  background: var(--color-white);
+  border: 1px solid var(--color-bebe);
+  border-radius: var(--radius-badges);
+  padding: 6px 12px;
+  max-width: 100%;
+  word-break: break-word;
 }

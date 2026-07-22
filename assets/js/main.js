@@ -22,3 +22,72 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  var uploaders = document.querySelectorAll("[data-file-upload]");
+
+  uploaders.forEach(function (uploader) {
+    var input = uploader.querySelector(".file-upload__input");
+    var status = uploader.querySelector("[data-file-status]");
+    var maxFiles = Number(input.dataset.maxFiles || 0);
+
+    function updateStatus(files) {
+      if (!files || files.length === 0) {
+        status.textContent = "هنوز فایلی انتخاب نشده";
+        return;
+      }
+
+      if (maxFiles > 0 && files.length > maxFiles) {
+        status.textContent = "تعداد فایل‌ها بیشتر از حد مجاز است";
+        input.value = "";
+        return;
+      }
+
+      if (files.length === 1) {
+        status.textContent = files[0].name;
+        return;
+      }
+
+      var names = Array.from(files).map(function (file) {
+        return file.name;
+      });
+
+      status.textContent =
+        files.length + " فایل انتخاب شد: " + names.join("، ");
+    }
+
+    input.addEventListener("change", function () {
+      updateStatus(input.files);
+    });
+
+    ["dragenter", "dragover"].forEach(function (eventName) {
+      uploader.addEventListener(eventName, function (event) {
+        event.preventDefault();
+        uploader.classList.add("is-dragover");
+      });
+    });
+
+    ["dragleave", "drop"].forEach(function (eventName) {
+      uploader.addEventListener(eventName, function (event) {
+        event.preventDefault();
+        uploader.classList.remove("is-dragover");
+      });
+    });
+
+    uploader.addEventListener("drop", function (event) {
+      if (!event.dataTransfer || !event.dataTransfer.files) {
+        return;
+      }
+
+      var files = event.dataTransfer.files;
+
+      if (maxFiles > 0 && files.length > maxFiles) {
+        status.textContent = "حداکثر " + maxFiles + " فایل مجاز است";
+        return;
+      }
+
+      input.files = files;
+      updateStatus(files);
+    });
+  });
+});

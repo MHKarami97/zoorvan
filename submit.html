@@ -5,17 +5,13 @@ permalink: /submit/
 ---
 <div class="form-page">
   <p style="text-align:center; color:var(--color-foggy); max-width:600px; margin:0 auto 24px;">
-    فرم زیر را با جزئیات تجربه‌تان تکمیل کنید. اطلاعات شما مستقیماً برای مدیر سایت ارسال می‌شود
+    فرم زیر را با جزئیات تجربه‌تان تکمیل کنید. اطلاعات شما مستقیماً برای سایت ارسال می‌شود
     و پس از بررسی، تجربه‌تان روی سایت منتشر خواهد شد. لطفاً واقعیت را بنویسید و از توهین یا
     افترا به اشخاص خودداری کنید.
   </p>
 
-  <form
-    class="form-card"
-    action="https://formspree.io/f/{{ site.formspree_form_id }}"
-    method="POST"
-    enctype="multipart/form-data"
-  >
+  <form class="form-card" action="https://formspree.io/f/{{ site.formspree_form_id }}" method="POST"
+    enctype="multipart/form-data">
     <!-- فیلدهای کنترلی Formspree -->
     <input type="hidden" name="_subject" value="تجربه جدید در زروان">
     <input type="text" name="_gotcha" style="display:none">
@@ -75,7 +71,7 @@ permalink: /submit/
       <label>امتیاز شما به این تجربه *</label>
       <div class="rating-radio">
         {% for i in (1..5) %}
-        <label><input type="radio" name="امتیاز" value="{{ i }}"{% if i == 5 %}required{% endif %}> {{ i }}★</label>
+        <label><input type="radio" name="امتیاز" value="{{ i }}" {% if i==5 %}required{% endif %}> {{ i }}★</label>
         {% endfor %}
       </div>
     </div>
@@ -107,43 +103,81 @@ permalink: /submit/
 
     <div class="form-group">
       <label for="photos">عکس‌ها (اختیاری — تا ۳ فایل)</label>
-      <input type="file" id="photos" name="عکس‌ها" accept="image/*" multiple class="has-dropzone">
+
+      <div class="file-upload" data-file-upload>
+        <input type="file" id="photos" name="عکس‌ها" accept="image/*" multiple class="file-upload__input"
+          data-max-files="3">
+
+        <label for="photos" class="file-upload__label">
+          <span class="file-upload__icon">📷</span>
+          <span class="file-upload__text">
+            برای انتخاب عکس کلیک کنید یا فایل را اینجا رها کنید
+          </span>
+          <span class="file-upload__subtext">
+            حداکثر ۳ فایل
+          </span>
+        </label>
+
+        <div class="file-upload__meta">
+          <span class="file-upload__status" data-file-status>
+            هنوز فایلی انتخاب نشده
+          </span>
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="videos">فیلم یا لینک ویدیو (اختیاری)</label>
       <span class="hint">می‌توانید فایل ویدیویی کوچک آپلود کنید یا لینک آپارات/یوتیوب را در قسمت توضیحات بگذارید</span>
-      <input type="file" id="videos" name="فیلم‌ها" accept="video/*" class="has-dropzone">
+
+      <div class="file-upload" data-file-upload>
+        <input type="file" id="videos" name="فیلم‌ها" accept="video/*" class="file-upload__input">
+
+        <label for="videos" class="file-upload__label">
+          <span class="file-upload__icon">🎬</span>
+          <span class="file-upload__text">
+            برای انتخاب ویدیو کلیک کنید یا فایل را اینجا رها کنید
+          </span>
+          <span class="file-upload__subtext">
+            یک فایل ویدیویی
+          </span>
+        </label>
+
+        <div class="file-upload__meta">
+          <span class="file-upload__status" data-file-status>
+            هنوز فایلی انتخاب نشده
+          </span>
+        </div>
+      </div>
     </div>
 
-<div class="form-group checkbox-group">
-       <label>
-         <input type="checkbox" name="تایید صحت اطلاعات" value="تایید شد" required>
-         تایید می‌کنم این تجربه واقعی و متعلق به من است و حاوی محتوای توهین‌آمیز یا نادرست نیست *
-         <span class="checkbox-icon"></span>
-       </label>
-     </div>
- 
-     <button type="submit" class="submit-btn">ارسال تجربه برای بررسی</button>
-   </form>
- </div>
+    <div class="form-group checkbox-group">
+      <label>
+        <input type="checkbox" class="auto-width" name="تایید صحت اطلاعات" value="تایید شد" required>
+        تایید می‌کنم این تجربه واقعی و متعلق به من است و حاوی محتوای توهین‌آمیز یا نادرست نیست *
+      </label>
+    </div>
 
- <script>
-   document.querySelectorAll('input[type="file"].has-dropzone').forEach(input => {
-     input.addEventListener('dragover', e => e.preventDefault());
-     input.addEventListener('dragleave', e => e.target.classList.remove('dragover'));
-     input.addEventListener('dragenter', e => e.target.classList.add('dragover'));
-     input.addEventListener('drop', e => e.preventDefault());
-     
-     const button = input.nextElementSibling;
-     if (button && button.classList.contains('submit-btn')) {
-       input.addEventListener('change', () => {
-         if (input.files.length > 0) {
-           input.classList.add('has-file');
-         } else {
-           input.classList.remove('has-file');
-         }
-       });
-     }
-   });
- </script>
+    <button type="submit" class="submit-btn">ارسال تجربه برای بررسی</button>
+  </form>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="file"].has-dropzone').forEach(input => {
+    input.addEventListener('dragover', e => e.preventDefault());
+    input.addEventListener('dragleave', e => e.target.classList.remove('dragover'));
+    input.addEventListener('dragenter', e => e.target.classList.add('dragover'));
+    input.addEventListener('drop', e => e.preventDefault());
+
+    const button = input.nextElementSibling;
+    if (button && button.classList.contains('submit-btn')) {
+      input.addEventListener('change', () => {
+        if (input.files.length > 0) {
+          input.classList.add('has-file');
+        } else {
+          input.classList.remove('has-file');
+        }
+      });
+    }
+  });
+</script>
