@@ -1,5 +1,6 @@
 :root {
   --color-rausch: #ff385c;
+  --color-rausch-50: #f597a8;
   --color-rausch-600: #e00b41;
   --color-hof: #222222;
   --color-foggy: #6a6a6a;
@@ -461,9 +462,6 @@ video {
   gap: 6px;
   font-weight: 400;
 }
-.auto-width {
-  width: auto;
-}
 .form-group input[type="file"].has-dropzone {
   border: 2px dashed var(--color-bebe);
   background: var(--color-faint);
@@ -744,12 +742,12 @@ body {
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(
-    135deg,
-    var(--color-rausch),
+    320deg,
+    var(--color-rausch-50),
     var(--color-rausch-600)
   );
   color: white;
-  padding: 14px 20px;
+  padding: 5px 5px;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(124, 92, 255, 0.4);
   display: flex;
@@ -900,4 +898,8 @@ body {
   padding: 6px 12px;
   max-width: 100%;
   word-break: break-word;
+}
+
+.auto-width {
+  width: auto;
 }
