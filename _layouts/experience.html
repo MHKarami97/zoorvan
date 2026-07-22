@@ -1,0 +1,57 @@
+---
+layout: default
+---
+<article class="experience-detail container">
+  <div class="experience-header">
+    {% assign cat = site.data.categories | where: "id", page.category | first %}
+    <span class="badge">{{ cat.title | default: page.category }}</span>
+    <h1>{{ page.title }}</h1>
+  </div>
+
+  <div class="experience-meta-bar">
+    <span>👤 <strong>{{ page.author_name | default: "کاربر ناشناس" }}</strong></span>
+    <span>📍 <strong>{{ page.location }}</strong></span>
+    {% if page.address %}<span>🏠 آدرس: <strong>{{ page.address }}</strong></span>{% endif %}
+    {% if page.contact %}<span>☎️ تماس/شماره: <strong>{{ page.contact }}</strong></span>{% endif %}
+    <span>📅 <strong>{{ page.date | date: "%Y/%m/%d" }}</strong></span>
+    {% if page.rating %}
+    <span class="rating-stars">
+      {% for i in (1..5) %}{% if i <= page.rating %}★{% else %}☆{% endif %}{% endfor %}
+      ({{ page.rating }}/۵)
+    </span>
+    {% endif %}
+  </div>
+
+  {% if page.images or page.videos %}
+  <div class="media-gallery">
+    {% for img in page.images %}
+      <img src="{{ img | relative_url }}" alt="{{ page.title }} - تصویر" loading="lazy">
+    {% endfor %}
+    {% for vid in page.videos %}
+      <video controls preload="metadata" src="{{ vid | relative_url }}"></video>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="info-box">
+    <div class="item"><h4>دسته‌بندی</h4><p>{{ cat.title | default: page.category }}</p></div>
+    <div class="item"><h4>لوکیشن</h4><p>{{ page.location }}</p></div>
+    {% if page.company_or_person %}<div class="item"><h4>نام شرکت/فرد/فروشگاه</h4><p>{{ page.company_or_person }}</p></div>{% endif %}
+    {% if page.price_range %}<div class="item"><h4>محدوده قیمت</h4><p>{{ page.price_range }}</p></div>{% endif %}
+    {% if page.recommend %}<div class="item"><h4>پیشنهاد می‌کند؟</h4><p>{{ page.recommend }}</p></div>{% endif %}
+  </div>
+
+  <div class="experience-content">
+    {{ content }}
+  </div>
+
+  {% if page.tags %}
+  <div style="margin-top:24px;">
+    {% for tag in page.tags %}<span class="badge" style="margin-left:6px;">#{{ tag }}</span>{% endfor %}
+  </div>
+  {% endif %}
+
+  <div style="margin-top:40px; text-align:center;">
+    <a href="{{ '/submit/' | relative_url }}" class="btn-cta">ثبت تجربه مشابه</a>
+  </div>
+</article>

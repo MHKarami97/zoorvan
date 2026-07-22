@@ -1,0 +1,128 @@
+---
+layout: page
+title: ثبت تجربه جدید
+permalink: /submit/
+---
+<div class="form-page">
+  <p style="text-align:center; color:var(--color-foggy); max-width:600px; margin:0 auto 24px;">
+    فرم زیر را با جزئیات تجربه‌تان تکمیل کنید. اطلاعات شما مستقیماً برای مدیر سایت ارسال می‌شود
+    و پس از بررسی، تجربه‌تان روی سایت منتشر خواهد شد. لطفاً واقعیت را بنویسید و از توهین یا
+    افترا به اشخاص خودداری کنید.
+  </p>
+
+  <form
+    class="form-card"
+    action="https://formspree.io/f/{{ site.formspree_form_id }}"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <!-- فیلدهای کنترلی Formspree -->
+    <input type="hidden" name="_subject" value="تجربه جدید در تجربه‌نامه">
+    <input type="text" name="_gotcha" style="display:none">
+
+    <div class="form-group">
+      <label for="title">عنوان تجربه *</label>
+      <span class="hint">یک عنوان کوتاه و واضح، مثلاً «تجربه خرید از فروشگاه X در تهران»</span>
+      <input type="text" id="title" name="عنوان تجربه" required maxlength="120">
+    </div>
+
+    <div class="form-group">
+      <label for="category">دسته‌بندی *</label>
+      <select id="category" name="دسته‌بندی" required>
+        <option value="">انتخاب کنید...</option>
+        {% for cat in site.data.categories %}
+        <option value="{{ cat.title }}">{{ cat.title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="author_name">نام شما</label>
+        <span class="hint">اگر خالی بگذارید، «ناشناس» ثبت می‌شود</span>
+        <input type="text" id="author_name" name="نام ثبت‌کننده" maxlength="60">
+      </div>
+      <div class="form-group">
+        <label for="email">ایمیل شما *</label>
+        <span class="hint">فقط برای پیگیری احتمالی؛ منتشر نمی‌شود</span>
+        <input type="email" id="email" name="ایمیل" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="location">شهر / لوکیشن *</label>
+        <input type="text" id="location" name="لوکیشن" required placeholder="مثلاً: تهران، کرج، نورنبرگ آلمان">
+      </div>
+      <div class="form-group">
+        <label for="company">نام شرکت / فروشگاه / فرد</label>
+        <input type="text" id="company" name="نام شرکت یا فرد" placeholder="مثلاً: شرکت الف، فروشگاه ب">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="address">آدرس دقیق (اختیاری)</label>
+        <input type="text" id="address" name="آدرس">
+      </div>
+      <div class="form-group">
+        <label for="contact">شماره تماس / لینک صفحه (اختیاری)</label>
+        <input type="text" id="contact" name="شماره یا لینک تماس">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>امتیاز شما به این تجربه *</label>
+      <div class="rating-radio">
+        {% for i in (1..5) %}
+        <label><input type="radio" name="امتیاز" value="{{ i }}" {% if i == 5 %}required{% endif %}> {{ i }} ★</label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="price_range">محدوده قیمت (اختیاری)</label>
+      <input type="text" id="price_range" name="محدوده قیمت" placeholder="مثلاً: ۵۰۰ تا ۷۰۰ هزار تومان">
+    </div>
+
+    <div class="form-group">
+      <label for="description">شرح کامل تجربه *</label>
+      <span class="hint">جزئیات، نقاط قوت و ضعف، و اینکه آیا آن را پیشنهاد می‌کنید یا نه</span>
+      <textarea id="description" name="توضیحات کامل" rows="8" required minlength="30"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>آیا این تجربه را به دیگران پیشنهاد می‌کنید؟</label>
+      <div class="rating-radio">
+        <label><input type="radio" name="پیشنهاد می‌شود" value="بله، پیشنهاد می‌کنم"> بله</label>
+        <label><input type="radio" name="پیشنهاد می‌شود" value="نه، پیشنهاد نمی‌کنم"> نه</label>
+        <label><input type="radio" name="پیشنهاد می‌شود" value="نظری ندارم"> نظری ندارم</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tags">برچسب‌ها (اختیاری، با کاما جدا کنید)</label>
+      <input type="text" id="tags" name="برچسب‌ها" placeholder="مثلاً: کیفیت-پایین، پشتیبانی-خوب، ارزان">
+    </div>
+
+    <div class="form-group">
+      <label for="photos">عکس‌ها (اختیاری — تا ۳ فایل)</label>
+      <input type="file" id="photos" name="عکس‌ها" accept="image/*" multiple>
+    </div>
+
+    <div class="form-group">
+      <label for="videos">فیلم یا لینک ویدیو (اختیاری)</label>
+      <span class="hint">می‌توانید فایل ویدیویی کوچک آپلود کنید یا لینک آپارات/یوتیوب را در قسمت توضیحات بگذارید</span>
+      <input type="file" id="videos" name="فیلم‌ها" accept="video/*">
+    </div>
+
+    <div class="form-group checkbox-group">
+      <label>
+        <input type="checkbox" name="تایید صحت اطلاعات" value="تایید شد" required>
+        تایید می‌کنم این تجربه واقعی و متعلق به من است و حاوی محتوای توهین‌آمیز یا نادرست نیست *
+      </label>
+    </div>
+
+    <button type="submit" class="submit-btn">ارسال تجربه برای بررسی</button>
+  </form>
+</div>

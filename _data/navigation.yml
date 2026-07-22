@@ -1,0 +1,8 @@
+- title: "خانه"
+  url: "/"
+- title: "دسته‌بندی‌ها"
+  url: "/categories/"
+- title: "ثبت تجربه جدید"
+  url: "/submit/"
+- title: "درباره ما"
+  url: "/about/"
