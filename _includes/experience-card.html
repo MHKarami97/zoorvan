@@ -1,5 +1,5 @@
 {% comment %}
-  کامپوننت کارت تجربه — قابل استفاده مجدد در صفحه اصلی، دسته‌بندی و آرشیو
+  کامپوننت کارت تجربه — قابل استفاده مجدد در صفحه اصلی، دسته‌بندی، برچسب‌ها و جستجو
   پارامتر ورودی: include.exp (یک آیتم از site.experiences)
 {% endcomment %}
 <article class="experience-card" data-experience-card>
@@ -20,5 +20,10 @@
       {% if include.exp.rating %}<span class="rating-stars">{% assign r = include.exp.rating %}{% for i in (1..5) %}{% if i <= r %}★{% else %}☆{% endif %}{% endfor %}</span>{% endif %}
     </div>
     <p class="excerpt">{{ include.exp.summary | default: include.exp.content | strip_html | truncate: 140 }}</p>
+    {% if include.exp.tags %}
+    <div class="card-tags">
+      {% for tag in include.exp.tags limit:3 %}<a href="{{ '/tags/' | relative_url }}#tag-{{ tag }}" class="tag-chip small">#{{ tag }}</a>{% endfor %}
+    </div>
+    {% endif %}
   </div>
 </article>

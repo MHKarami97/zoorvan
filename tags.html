@@ -1,0 +1,41 @@
+---
+layout: default
+title: برچسب‌ها
+permalink: /tags/
+---
+<div class="container" style="padding:32px 0;">
+  <h1 style="font-size:28px;">مرور بر اساس برچسب</h1>
+  <p style="color:var(--color-foggy); margin-bottom:24px;">روی هر برچسب کلیک کنید تا تجربه‌های مرتبط را ببینید.</p>
+
+  {% assign all_tags = "" | split: "" %}
+  {% for exp in site.experiences %}
+    {% for t in exp.tags %}
+      {% assign all_tags = all_tags | push: t %}
+    {% endfor %}
+  {% endfor %}
+  {% assign unique_tags = all_tags | uniq | sort %}
+
+  <div class="tag-cloud">
+    {% for t in unique_tags %}
+      {% assign count = 0 %}
+      {% for exp in site.experiences %}{% if exp.tags contains t %}{% assign count = count | plus: 1 %}{% endif %}{% endfor %}
+      <a href="#tag-{{ t }}" class="tag-chip">#{{ t }} <span>({{ count }})</span></a>
+    {% endfor %}
+  </div>
+
+  {% for t in unique_tags %}
+    {% assign filtered = site.experiences | where_exp: "e", "e.tags contains t" | sort: 'date' | reverse %}
+    <div id="tag-{{ t }}" style="margin:40px 0;">
+      <h2 class="section-title" style="margin-top:0;">#{{ t }}</h2>
+      <div class="experience-grid">
+        {% for exp in filtered %}
+          {% include experience-card.html exp=exp %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+
+  {% if unique_tags.size == 0 %}
+    <p style="color:var(--color-grey-500);">هنوز برچسبی ثبت نشده است.</p>
+  {% endif %}
+</div>

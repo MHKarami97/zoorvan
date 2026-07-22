@@ -6,6 +6,7 @@
         <a href="{{ '/about/' | relative_url }}">درباره ما</a>
         <a href="{{ '/submit/' | relative_url }}">ثبت تجربه</a>
         <a href="{{ '/categories/' | relative_url }}">دسته‌بندی‌ها</a>
+        <a href="{{ '/tags/' | relative_url }}">برچسب‌ها</a>
       </div>
       <div>
         <h4>دسته‌بندی‌های محبوب</h4>
@@ -20,8 +21,9 @@
       </div>
     </div>
     <div class="footer-bottom">
-      &copy; {{ site.time | date: '%Y' }} تجربه‌نامه — ساخته شده با Jekyll و میزبانی روی GitHub Pages
+      &copy; {{ site.time | date: '%Y' }} تجربه‌نامه — ساخته شده با Jekyll، به‌صورت PWA و میزبانی روی GitHub Pages
     </div>
   </div>
 </footer>
 <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/pwa.js' | relative_url }}"></script>

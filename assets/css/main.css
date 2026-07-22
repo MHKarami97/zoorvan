@@ -436,3 +436,105 @@ video{max-width:100%;border-radius:var(--radius-cards);}
   .hero h1{font-size:24px;}
   .header-actions .btn-ghost{display:none;}
 }
+
+
+/* ---------------- PWA & Mobile UI enhancements ---------------- */
+
+/* رعایت safe-area برای دستگاه‌های دارای notch/home-indicator */
+.site-header{
+  padding-top:env(safe-area-inset-top);
+}
+.site-footer{
+  padding-bottom:calc(var(--spacing-32) + env(safe-area-inset-bottom));
+}
+body{
+  padding-bottom:env(safe-area-inset-bottom);
+}
+
+/* دکمه نصب PWA در هدر */
+[data-pwa-install]{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* Tag chip - استفاده در صفحه برچسب‌ها، دسته‌بندی‌ها و کارت‌ها */
+.tag-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  background:var(--color-faint);
+  color:var(--color-hof);
+  font-size:var(--text-caption);
+  font-weight:600;
+  padding:6px 14px;
+  border-radius:var(--radius-badges);
+  transition:background .2s;
+}
+.tag-chip:hover{background:var(--color-bebe);}
+.tag-chip span{color:var(--color-foggy); font-weight:400;}
+.tag-chip.small{
+  padding:3px 10px;
+  font-size:10px;
+  font-weight:500;
+}
+.tag-cloud{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--spacing-8);
+  margin-bottom:var(--spacing-32);
+}
+.card-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:2px;
+}
+.chip-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--spacing-8);
+  margin-bottom:var(--spacing-24);
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:4px;
+}
+
+/* افزایش سطح لمسی (touch target) دکمه‌ها و لینک‌های ناوبری در موبایل مطابق توصیه ۴۴px اپل/گوگل */
+@media (max-width:768px){
+  .nav a{
+    display:block;
+    padding:12px 4px;
+    font-size:17px;
+  }
+  .btn-cta, .btn-ghost, .submit-btn{
+    min-height:44px;
+  }
+  .search-capsule button{
+    width:48px; height:48px;
+  }
+  .category-grid, .experience-grid{
+    grid-template-columns:1fr 1fr;
+    gap:var(--spacing-12);
+  }
+  .experience-card .thumb{aspect-ratio:4/3;}
+  .container{padding:0 var(--spacing-12);}
+  .form-card{padding:var(--spacing-16);}
+}
+@media (max-width:420px){
+  .category-grid, .experience-grid{
+    grid-template-columns:1fr;
+  }
+  .hero h1{font-size:22px;}
+  .info-box{grid-template-columns:1fr;}
+}
+
+/* حالت standalone وقتی اپ نصب‌شده — حذف بخش‌های غیرضروری برای حس بومی‌تر */
+@media (display-mode: standalone){
+  .site-header{ box-shadow:var(--shadow-subtle); }
+}
+
+/* اسکلتون بارگذاری ساده برای تصاویر lazy (بهبود حس Performance) */
+.thumb{
+  background-color:var(--color-deco);
+}

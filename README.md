@@ -1,7 +1,8 @@
-# تجربه‌نامه — Jekyll Experience Sharing Platform
+# تجربه‌نامه — Jekyll PWA Experience Sharing Platform
 
 پروژه‌ای برای ثبت و اشتراک‌گذاری تجربه‌های واقعی مردم (کار در شرکت، خرید از فروشگاه،
-سفر، تعامل با افراد خدماتی و ...)، ساخته‌شده با **Jekyll** و آماده هاست روی **GitHub Pages**.
+سفر، تعامل با افراد خدماتی و ...)، ساخته‌شده با **Jekyll**، به‌صورت **PWA کامل** (قابل نصب،
+آفلاین‌کار) و آماده هاست روی **GitHub Pages**.
 
 ---
 
@@ -9,164 +10,166 @@
 
 ```
 jekyll-tajrobe/
-├── _config.yml           # تنظیمات اصلی سایت (عنوان، زبان، کالکشن‌ها، پلاگین‌ها)
-├── Gemfile                # وابستگی‌های روبی (github-pages gem)
+├── _config.yml            # تنظیمات اصلی سایت
+├── Gemfile
+├── manifest.webmanifest    # Web App Manifest — نصب PWA (طبق MDN)
+├── sw.js                   # Service Worker — کش آفلاین (Network-first برای HTML)
+├── offline.html            # صفحه fallback هنگام قطع اینترنت
+├── search.json             # فید JSON از تمام تجربه‌ها برای جستجوی سمت کلاینت
+├── search.html             # صفحه جستجو (فیلتر لحظه‌ای روی search.json)
+├── tags.html               # صفحه برچسب‌ها (ابر برچسب + فیلتر خودکار)
 ├── _data/
-│   ├── categories.yml     # لیست دسته‌بندی‌های تجربه (منبع واحد حقیقت - Single Source of Truth)
-│   └── navigation.yml     # آیتم‌های منوی اصلی
-├── _experiences/          # کالکشن Jekyll — هر فایل = یک تجربه (Markdown + Front Matter)
-├── _layouts/
-│   ├── default.html       # لایوت پایه (header + footer + content)
-│   ├── page.html          # لایوت صفحات ساده (درباره ما و ...)
-│   └── experience.html    # لایوت اختصاصی نمایش تجربه (متادیتا، گالری، امتیاز)
+│   ├── categories.yml      # منبع واحد دسته‌بندی‌ها
+│   └── navigation.yml      # آیتم‌های منو (خانه، دسته‌بندی، برچسب، جستجو، ثبت، درباره)
+├── _experiences/           # کالکشن Jekyll — هر فایل = یک تجربه
+├── _layouts/                (default, page, experience)
 ├── _includes/
-│   ├── head.html          # تگ‌های <head>, فونت، SEO
-│   ├── header.html        # نوار ناوبری (ریسپانسیو با منوی موبایل)
-│   ├── footer.html        # فوتر و لینک‌های دسته‌بندی
-│   └── experience-card.html  # کامپوننت کارت تجربه (استفاده در چند صفحه - اصل DRY)
+│   ├── head.html            # متادیتای PWA، manifest، آیکون‌ها، theme-color
+│   ├── header.html          # ناوبری + دکمه «نصب اپلیکیشن»
+│   ├── footer.html          # فوتر + بارگذاری pwa.js
+│   └── experience-card.html # کارت تجربه با تگ‌های قابل کلیک
 ├── assets/
-│   ├── css/main.css       # تمام استایل‌ها، مبتنی بر توکن‌های DESIGN.md (RTL + Mobile-first)
-│   ├── js/main.js         # منوی موبایل + فیلتر جستجوی سمت کلاینت (Vanilla JS)
-│   └── images/            # تصاویر placeholder — عکس‌های واقعی خود را جایگزین کنید
-├── index.html             # صفحه اصلی (هیرو + دسته‌بندی‌ها + آخرین تجربه‌ها)
-├── categories.html        # صفحه دسته‌بندی‌ها (تجربه‌ها به تفکیک هر دسته)
-├── submit.html            # فرم ثبت تجربه (متصل به Formspree.io)
-├── about.md               # درباره سایت
-└── 404.html                # صفحه خطای ۴۰۴
+│   ├── css/main.css         # استایل کامل، PWA-safe-area، ریسپانسیو تا ۴۲۰px
+│   ├── js/main.js           # منوی موبایل
+│   ├── js/pwa.js            # ثبت Service Worker + مدیریت پرامپت نصب
+│   ├── js/search.js         # موتور جستجوی سمت کلاینت (fetch از search.json)
+│   └── images/icons/        # آیکون‌های PWA در تمام سایزهای استاندارد + ماسک‌ابل
+└── README.md
 ```
-
-### چرا این ساختار؟
-
-- **Jekyll Collections** (`_experiences`) به‌جای پست‌های وبلاگی معمولی استفاده شده، چون هر
-  تجربه شبیه یک "رکورد داده" با فیلدهای ثابت (لوکیشن، آدرس، امتیاز، رسانه) است، نه یک پست
-  وبلاگی تاریخ‌محور صرف. این الگو دقیقاً همان چیزی است که داکیومنت رسمی Jekyll برای محتوای
-  غیر پستی توصیه می‌کند (jekyllrb.com/docs/collections).
-- **`_data/categories.yml`** به‌عنوان تنها منبع حقیقت (Single Source of Truth) برای
-  دسته‌بندی‌ها استفاده شده تا افزودن دسته جدید فقط در یک فایل انجام شود و در همه‌جا
-  (خانه، دسته‌بندی‌ها، فوتر، فرم ثبت) به‌طور خودکار به‌روزرسانی شود.
-- **Front Matter Defaults** در `_config.yml` باعث می‌شود هر فایل در `_experiences` بدون
-  نیاز به تکرار `layout: experience` در هر فایل، به‌طور خودکار لایوت مناسب را بگیرد.
-- **کامپوننت `experience-card.html`** طبق اصل DRY در سه صفحه مختلف (خانه، دسته‌بندی‌ها،
-  و به‌راحتی در صفحات آینده) استفاده می‌شود بدون تکرار HTML.
 
 ---
 
-## ۲. راه‌اندازی محلی (Local Setup)
+## ۲. قابلیت PWA — چه اضافه شد؟
+
+| مورد | فایل | توضیح |
+|---|---|---|
+| نصب روی موبایل/دسکتاپ | `manifest.webmanifest` | شامل `name`, `icons` (۹ سایز)، `display: standalone`، `start_url`، `shortcuts` |
+| کار آفلاین | `sw.js` + `offline.html` | استراتژی Network-First برای صفحات HTML و Cache-First برای فایل‌های استاتیک |
+| آیکون‌های استاندارد | `assets/images/icons/` | ۷۲ تا ۵۱۲ پیکسل + نسخه Maskable برای اندروید |
+| نصب سفارشی | `pwa.js` | گوش‌دادن به `beforeinstallprompt` و نمایش دکمه «نصب اپلیکیشن» در هدر |
+| تجربه بومی در iOS | `head.html` | متاتگ‌های `apple-mobile-web-app-*` و `apple-touch-icon` |
+| رعایت Safe Area | `main.css` | `env(safe-area-inset-top/bottom)` برای گوشی‌های دارای Notch |
+
+این پیکربندی دقیقاً معیارهای نصب PWA طبق داکیومنت رسمی `web.dev/articles/install-criteria`
+را پوشش می‌دهد: HTTPS (که GitHub Pages به‌صورت پیش‌فرض فراهم می‌کند)، manifest با
+`name`/`short_name`، آیکون ۱۹۲ و ۵۱۲ پیکسل، `start_url`، و `display: standalone`.
+ساختار manifest نیز طبق مرجع رسمی MDN (`developer.mozilla.org/docs/Web/Progressive_web_apps/Manifest`)
+نوشته شده است.
+
+> ⚠️ نکته مهم: Service Worker فقط روی **HTTPS** یا `localhost` کار می‌کند. GitHub Pages
+> به‌صورت پیش‌فرض HTTPS دارد، پس بعد از انتشار نیازی به تنظیم اضافه نیست.
+
+---
+
+## ۳. قابلیت‌های کمک به کاربر (دسته‌بندی، تگ، سرچ)
+
+| قابلیت | آدرس | توضیح |
+|---|---|---|
+| دسته‌بندی | `/categories/` | تجربه‌ها به تفکیک ۸ دسته با ناوبری چیپ‌مانند بالای صفحه |
+| برچسب‌ها | `/tags/` | ابر برچسب خودکار (Auto tag cloud) از تمام فایل‌های `_experiences`، بدون نیاز به نگهداری دستی لیست |
+| جستجو | `/search/` | جستجوی لحظه‌ای (debounced) در عنوان، شهر، برچسب و نام شرکت/فرد؛ از `search.json` تغذیه می‌شود |
+| جستجوی سریع در هدر | صفحه اصلی | فرم هیرو مستقیماً به `/search/?q=...` هدایت می‌شود |
+| فیلتر در کارت‌ها | همه‌جا | هر کارت تجربه، حداکثر ۳ تگ قابل کلیک نشان می‌دهد که به بخش مرتبط در `/tags/` می‌رود |
+
+`search.json` به‌صورت خودکار توسط Jekyll از روی تمام فایل‌های کالکشن `_experiences` ساخته
+می‌شود؛ یعنی برای افزودن تجربه جدید کافی است فقط فایل Markdown اضافه شود و جستجو/تگ‌ها
+بدون هیچ کار دستی اضافه به‌روزرسانی می‌شوند.
+
+---
+
+## ۴. راه‌اندازی محلی (Local Setup)
 
 ```bash
-# نصب Ruby (در ویندوز از RubyInstaller استفاده کنید: https://rubyinstaller.org)
 gem install bundler
 cd jekyll-tajrobe
 bundle install
 bundle exec jekyll serve
-# سایت روی http://localhost:4000 در دسترس است
+# سایت روی http://localhost:4000 — Service Worker روی localhost هم فعال است
 ```
+
+برای تست کامل PWA (نصب، آفلاین) در Chrome DevTools:
+1. تب **Application → Manifest** را باز کنید تا اعتبار manifest را ببینید.
+2. تب **Application → Service Workers** برای بررسی ثبت sw.js.
+3. آیکون نصب (⊕) در نوار آدرس کروم باید ظاهر شود.
 
 ---
 
-## ۳. اتصال فرم به Formspree
+## ۵. اتصال فرم به Formspree
 
-۱. در [formspree.io](https://formspree.io) ثبت‌نام کنید و یک فرم جدید بسازید.
-۲. Form ID خود را از بخش Integration کپی کنید (مثل `xabc1234`).
-۳. در فایل `_config.yml`، مقدار `formspree_form_id` را با ID خودتان جایگزین کنید:
+۱. در [formspree.io](https://formspree.io) ثبت‌نام کنید و فرم بسازید.
+۲. Form ID را کپی کرده و در `_config.yml` مقدار `formspree_form_id` را جایگزین کنید.
 
-```yaml
-formspree_form_id: "xabc1234"
-```
-
-فایل `submit.html` به‌صورت خودکار این مقدار را در `action` فرم قرار می‌دهد:
-```html
-action="https://formspree.io/f/{{ site.formspree_form_id }}"
-```
-
-طبق داکیومنت رسمی Formspree، هر `<input>` یا `<textarea>` که attribute `name` داشته باشد
-به‌صورت خودکار در ایمیل دریافتی شما نمایش داده می‌شود — دقیقاً همین روش در فرم `submit.html`
-با نام‌های فارسی فیلدها (مثل `name="عنوان تجربه"`) پیاده‌سازی شده است تا ایمیل دریافتی
-خوانا باشد (help.formspree.io/articles/building-your-form/building-an-html-form).
+فرم `submit.html` به‌صورت خودکار این مقدار را در `action` قرار می‌دهد. نام فیلدها فارسی و
+خوانا هستند (`name="عنوان تجربه"`) تا ایمیل دریافتی مستقیماً قابل استفاده باشد
+(طبق `help.formspree.io/articles/building-your-form/building-an-html-form/`).
 
 ---
 
-## ۴. افزودن یک تجربه جدید به سایت (توسط مدیر سایت)
+## ۶. افزودن تجربه جدید (توسط مدیر سایت)
 
-پس از دریافت فرم در ایمیل، یک فایل Markdown جدید در پوشه `_experiences/` بسازید:
+فایل Markdown جدید در `_experiences/` با این Front Matter بسازید:
 
 ```markdown
 ---
 title: "عنوان تجربه"
-category: work            # باید دقیقاً id یکی از دسته‌بندی‌های _data/categories.yml باشد
+category: work
 location: "شهر، کشور"
 author_name: "نام یا ناشناس"
 company_or_person: "نام شرکت/فرد (اختیاری)"
-address: "آدرس دقیق (اختیاری)"
-contact: "شماره تماس یا لینک (اختیاری)"
+address: "آدرس (اختیاری)"
+contact: "تماس (اختیاری)"
 date: 2026-07-22
-rating: 4                  # عدد ۱ تا ۵
+rating: 4
 recommend: "بله، پیشنهاد می‌کنم"
-price_range: "محدوده قیمت (اختیاری)"
+price_range: "اختیاری"
 tags: [تگ۱, تگ۲]
 image: /assets/images/نام-عکس.jpg
-images: ["/assets/images/img1.jpg", "/assets/images/img2.jpg"]
+images: ["/assets/images/img1.jpg"]
 videos: ["/assets/videos/clip1.mp4"]
 ---
-
-متن کامل تجربه با فرمت Markdown اینجا نوشته می‌شود...
+متن کامل تجربه...
 ```
 
-عکس‌ها و ویدیوها را در `assets/images/` یا `assets/videos/` قرار دهید. Jekyll به‌صورت
-خودکار صفحه را در آدرس `/experiences/عنوان-انگلیسی-فایل/` منتشر می‌کند.
+این تجربه به‌طور خودکار در صفحه اصلی، دسته‌بندی مربوطه، `/tags/`، و `/search/` ظاهر می‌شود
+— بدون هیچ تغییر دیگری در کد.
 
 ---
 
-## ۵. هاست روی GitHub Pages
-
-۱. یک ریپازیتوری جدید در گیت‌هاب بسازید (مثلاً `tajrobe-nameh`).
-۲. محتوای این پوشه را push کنید:
+## ۷. هاست روی GitHub Pages
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit - تجربه‌نامه"
+git init && git add . && git commit -m "Initial commit"
 git branch -M main
 git remote add origin https://github.com/USERNAME/tajrobe-nameh.git
 git push -u origin main
 ```
 
-۳. در تنظیمات ریپازیتوری، بخش **Settings > Pages**، منبع را روی شاخه `main` تنظیم کنید.
-۴. در `_config.yml`، مقدار `url` و `baseurl` را با آدرس واقعی گیت‌هاب‌پیجز خود هماهنگ کنید:
-   - اگر ریپو نام `USERNAME.github.io` دارد → `baseurl: ""`
-   - در غیر این صورت → `baseurl: "/tajrobe-nameh"`
-
-طبق داکیومنت رسمی گیت‌هاب (docs.github.com/pages/setting-up-a-github-pages-site-with-jekyll)،
-گیت‌هاب‌پیجز به‌طور پیش‌فرض Jekyll را build می‌کند، پس نیازی به build دستی یا CI جدا نیست؛
-فقط باید gem `github-pages` در Gemfile باشد تا نسخه پلاگین‌ها با محیط گیت‌هاب سازگار بماند.
+سپس در **Settings → Pages** منبع را روی شاخه `main` تنظیم کنید. مقدار `url` و `baseurl`
+در `_config.yml` را با آدرس واقعی خودتان هماهنگ کنید (طبق
+`docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll`).
 
 ---
 
-## ۶. نکات فنی و طراحی (Performance / Responsive)
+## ۸. نکات Performance و UI موبایل
 
-- CSS و JS بدون فریم‌ورک خارجی (Vanilla) نوشته شده‌اند تا حجم صفحه کم و لود سریع بماند.
-- تصاویر با `loading="lazy"` بارگذاری می‌شوند تا سرعت صفحات اولیه بهتر شود.
-- طراحی Mobile-First است؛ منوی اصلی در صفحات کوچک به یک دراور تبدیل می‌شود (`main.js`).
-- سیستم رنگ و تایپوگرافی از فایل `DESIGN.md` (سبک Airbnb) گرفته شده و در `main.css` به‌صورت
-  CSS Custom Properties (توکن‌محور) پیاده‌سازی شده تا تغییر تم در آینده آسان باشد.
-- زبان سایت فارسی و جهت RTL است (`dir="rtl"` روی `<html>` و در CSS).
-
----
-
-## ۷. کارهای بعدی پیشنهادی (Roadmap)
-
-- افزودن جستجوی واقعی با Lunr.js یا Algolia برای جستجوی سمت کلاینت پیشرفته‌تر.
-- افزودن GitHub Action برای ساخت خودکار فایل تجربه از ایمیل‌های Formspree (Webhook + Zapier).
-- افزودن صفحه امتیاز میانگین برای هر شرکت/فرد در صورت تکرار تجربه‌ها.
+- تمام دکمه‌ها و لینک‌های ناوبری در موبایل حداقل ۴۴px ارتفاع دارند (استاندارد Apple HIG/Material).
+- Grid کارت‌ها در موبایل به ۲ ستون (و زیر ۴۲۰px به ۱ ستون) تبدیل می‌شود.
+- تصاویر با `loading="lazy"` و پس‌زمینه اسکلتون (`--color-deco`) بارگذاری می‌شوند.
+- CSS به `env(safe-area-inset-*)` احترام می‌گذارد تا در گوشی‌های دارای Notch/Home Indicator
+  محتوا زیر نوار سیستم پنهان نشود.
+- Service Worker با استراتژی Network-First روی HTML باعث می‌شود کاربر همیشه محتوای
+  به‌روز ببیند، ولی در قطعی اینترنت صفحه `offline.html` یا نسخه کش‌شده نمایش داده شود.
 
 ---
 
 ## منابع
 
-- [Jekyll Collections — داکیومنت رسمی](https://jekyllrb.com/docs/collections/)
-- [GitHub Pages + Jekyll — داکیومنت رسمی گیت‌هاب](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll)
-- [Formspree — HTML Forms Guide](https://formspree.io/html/)
-- [Formspree — Building an HTML Form](https://help.formspree.io/articles/building-your-form/building-an-html-form/)
+- [Jekyll Collections](https://jekyllrb.com/docs/collections/)
+- [GitHub Pages + Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll)
+- [Formspree HTML Forms](https://formspree.io/html/)
+- [MDN — Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest)
+- [web.dev — PWA Install Criteria](https://web.dev/articles/install-criteria)
+- [MDN Service Worker Cookbook](https://github.com/mdn/serviceworker-cookbook)
 
 ---
 

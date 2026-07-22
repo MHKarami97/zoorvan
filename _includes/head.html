@@ -1,8 +1,27 @@
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
 <meta name="description" content="{{ page.description | default: site.description }}">
-<link rel="icon" href="{{ '/assets/images/favicon.png' | relative_url }}">
+
+<!-- PWA: Web App Manifest (طبق مشخصات رسمی MDN Web App Manifest) -->
+<link rel="manifest" href="{{ '/manifest.webmanifest' | relative_url }}">
+<meta name="theme-color" content="#ff385c">
+<meta name="color-scheme" content="light">
+
+<!-- آیکون‌ها برای پلتفرم‌های مختلف -->
+<link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/images/favicon-32x32.png' | relative_url }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/images/favicon-16x16.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}">
+
+<!-- تنظیمات iOS برای اجرا در حالت standalone -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="تجربه‌نامه">
+
+<!-- تنظیمات Windows/Edge Tile -->
+<meta name="msapplication-TileColor" content="#ff385c">
+<meta name="msapplication-TileImage" content="{{ '/assets/images/icons/icon-144x144.png' | relative_url }}">
+
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">

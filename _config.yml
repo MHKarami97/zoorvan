@@ -1,4 +1,4 @@
-# _config.yml — پیکربندی اصلی Jekyll برای وبسایت «تجربه‌نامه»
+# _config.yml — پیکربندی اصلی Jekyll برای وبسایت «تجربه‌نامه» (PWA-Ready)
 title: "تجربه‌نامه"
 tagline: "تجربه‌های واقعی مردم؛ راهنمای تصمیم‌گیری بهتر"
 description: >-
@@ -50,6 +50,11 @@ plugins:
 
 paginate: 9
 paginate_path: "/page:num/"
+
+# فایل‌های PWA باید بدون تغییر مسیر و با نوع MIME صحیح سرو شوند (GitHub Pages به‌صورت پیش‌فرض این کار را انجام می‌دهد)
+include:
+  - manifest.webmanifest
+  - sw.js
 
 exclude:
   - Gemfile
