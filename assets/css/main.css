@@ -901,5 +901,5 @@ body {
 }
 
 .auto-width {
-  width: auto;
+  width: auto !important;
 }
