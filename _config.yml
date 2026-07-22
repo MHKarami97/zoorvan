@@ -15,7 +15,7 @@ author:
 
 # --- فرم ثبت تجربه (Formspree) ---
 # شناسه فرم خودتان را از formspree.io دریافت کرده و اینجا جایگزین FORM_ID کنید
-formspree_form_id: "FORM_ID"
+formspree_form_id: "mrenagzb"
 
 # --- کالکشن تجربه‌ها ---
 collections:
