@@ -396,45 +396,45 @@ video {
   margin-bottom: 6px;
 }
 .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid var(--color-bebe);
-    border-radius: var(--radius-inputs);
-    font-family: var(--font-main);
-    font-size: var(--text-body);
-    background: var(--color-faint);
-    color: var(--color-hof);
-  }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    outline: 2px solid var(--color-rausch);
-    outline-offset: 1px;
-    background: var(--color-white);
-  }
-  .form-group input[type="file"] {
-    padding: 10px 12px;
-    cursor: pointer;
-  }
-  .form-group input[type="file"].has-dropzone {
-    border: 2px dashed var(--color-bebe);
-    background: var(--color-faint);
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .form-group input[type="file"].has-dropzone:hover,
-  .form-group input[type="file"].has-dropzone.dragover {
-    border-color: var(--color-rausch);
-    background: var(--color-white);
-  }
-  .form-group input[type="file"].has-dropzone.has-file {
-    border-color: var(--color-rausch);
-    background: var(--color-white);
-  }
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-bebe);
+  border-radius: var(--radius-inputs);
+  font-family: var(--font-main);
+  font-size: var(--text-body);
+  background: var(--color-faint);
+  color: var(--color-hof);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: 2px solid var(--color-rausch);
+  outline-offset: 1px;
+  background: var(--color-white);
+}
+.form-group input[type="file"] {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+.form-group input[type="file"].has-dropzone {
+  border: 2px dashed var(--color-bebe);
+  background: var(--color-faint);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.form-group input[type="file"].has-dropzone:hover,
+.form-group input[type="file"].has-dropzone.dragover {
+  border-color: var(--color-rausch);
+  background: var(--color-white);
+}
+.form-group input[type="file"].has-dropzone.has-file {
+  border-color: var(--color-rausch);
+  background: var(--color-white);
+}
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -456,62 +456,62 @@ video {
   cursor: pointer;
 }
 .checkbox-group label {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 400;
-  }
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 400;
+}
 .form-group input[type="file"].has-dropzone {
-        border: 2px dashed var(--color-bebe);
-        background: var(--color-faint);
-        padding: 15px 20px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.2s;
-        direction: ltr;
-    }
-    .form-group input[type="file"].has-dropzone.dragover {
-        border-color: var(--color-rausch);
-        background: var(--color-white);
-    }
-    .form-group input[type="file"].has-dropzone.has-file {
-        border-color: var(--color-raausch);
-        background: var(--color-white);
-    }
-    .form-group input[type="file"].has-dropzone .file-label {
-        display: block;
-        margin-top: 8px;
-        font-size: var(--text-caption);
-        color: var(--color-foggy);
-    }
+  border: 2px dashed var(--color-bebe);
+  background: var(--color-faint);
+  padding: 15px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  direction: ltr;
+}
+.form-group input[type="file"].has-dropzone.dragover {
+  border-color: var(--color-rausch);
+  background: var(--color-white);
+}
+.form-group input[type="file"].has-dropzone.has-file {
+  border-color: var(--color-raausch);
+  background: var(--color-white);
+}
+.form-group input[type="file"].has-dropzone .file-label {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--text-caption);
+  color: var(--color-foggy);
+}
 .checkbox-group .checkbox-icon {
-    width: 18px;
-    height: 18px;
-    color: var(--color-rausch);
-    display: none;
-    stroke-width: 2;
+  width: 18px;
+  height: 18px;
+  color: var(--color-rausch);
+  display: none;
+  stroke-width: 2;
 }
 .checkbox-group input[type="checkbox"]:checked + .checkbox-icon {
-    display: inline-block;
+  display: inline-block;
 }
 .checkbox-group input[type="checkbox"]:checked ~ span {
-    color: var(--color-rausch);
-    font-weight: 500;
+  color: var(--color-rausch);
+  font-weight: 500;
 }
-  .checkbox-group .checkbox-icon {
-    width: 18px;
-    height: 18px;
-    color: var(--color-rausch);
-    display: none;
-    stroke-width: 2;
-  }
-  .checkbox-group input[type="checkbox"]:checked + .checkbox-icon {
-    display: block;
-  }
-  .checkbox-group input[type="checkbox"]:checked ~ span {
-    color: var(--color-rausch);
-    font-weight: 500;
-  }
+.checkbox-group .checkbox-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-rausch);
+  display: none;
+  stroke-width: 2;
+}
+.checkbox-group input[type="checkbox"]:checked + .checkbox-icon {
+  display: block;
+}
+.checkbox-group input[type="checkbox"]:checked ~ span {
+  color: var(--color-rausch);
+  font-weight: 500;
+}
 .submit-btn {
   width: 100%;
   padding: 14px;
@@ -733,4 +733,84 @@ body {
 /* اسکلتون بارگذاری ساده برای تصاویر lazy (بهبود حس Performance) */
 .thumb {
   background-color: var(--color-deco);
+}
+
+.install-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+  padding: 14px 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(124, 92, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  animation: slideUp 0.3s ease;
+  max-width: calc(100% - 30px);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateX(-50%) translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+.install-prompt-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.install-prompt-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.install-prompt-desc {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.install-btn {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: Vazirmatn, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.install-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.05);
+}
+
+.close-install {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 4px;
+  line-height: 1;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.close-install:hover {
+  opacity: 1;
 }

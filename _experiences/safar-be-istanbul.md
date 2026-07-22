@@ -7,7 +7,7 @@ date: 2026-06-02
 rating: 5
 recommend: "بله، پیشنهاد می‌کنم"
 tags: [سفر, ترکیه, گردشگری]
-image: /assets/images/sample-travel.jpg
+image: /assets/images/01.jpg
 ---
 
 یک سفر ده‌روزه به استانبول داشتم و می‌خواهم تجربه‌ام درباره مردم و فضای شهر را بنویسم.
