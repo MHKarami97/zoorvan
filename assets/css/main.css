@@ -156,7 +156,7 @@ video{max-width:100%;border-radius:var(--radius-cards);}
   font-size:var(--text-ui);
   font-family:var(--font-main);
   background:transparent;
-  padding:8px 0;
+  padding:8px 8px;
 }
 .search-capsule button{
   width:44px;height:44px;
