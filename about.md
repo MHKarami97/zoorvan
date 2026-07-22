@@ -28,4 +28,4 @@ permalink: /about/
 
 ## تماس با ما
 
-وبسایت: [{{ site.author.site }}]({{ site.author.site }})
+وبسایت: [mhkarami97.ir]({{ site.author.site }})

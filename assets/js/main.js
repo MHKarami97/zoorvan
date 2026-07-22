@@ -1,5 +1,3 @@
-// assets/js/main.js
-// مدیریت باز/بسته شدن منوی موبایل — بدون وابستگی خارجی، Vanilla JS
 document.addEventListener("DOMContentLoaded", function () {
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.querySelector(".nav");
@@ -15,10 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
   if (searchInput) {
     searchInput.addEventListener("input", function (e) {
       var term = e.target.value.trim().toLowerCase();
-      document.querySelectorAll("[data-experience-card]").forEach(function (card) {
-        var text = card.textContent.toLowerCase();
-        card.style.display = text.includes(term) ? "" : "none";
-      });
+      document
+        .querySelectorAll("[data-experience-card]")
+        .forEach(function (card) {
+          var text = card.textContent.toLowerCase();
+          card.style.display = text.includes(term) ? "" : "none";
+        });
     });
   }
 });

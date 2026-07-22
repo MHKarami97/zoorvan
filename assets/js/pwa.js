@@ -1,6 +1,3 @@
----
----
-// assets/js/pwa.js — ثبت Service Worker و مدیریت پرامپت نصب PWA
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
     navigator.serviceWorker

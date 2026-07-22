@@ -12,7 +12,7 @@ const PRECACHE_URLS = [
   "{{ '/about/' | relative_url }}",
   "{{ '/offline/' | relative_url }}",
   "{{ '/assets/css/main.css' | relative_url }}",
-  "{{ '/assets/Vazirmatn-font-face.css' | relative_url }}",
+  "{{ '/assets/fonts/Vazirmatn-font-face.css' | relative_url }}",
   "{{ '/assets/js/main.js' | relative_url }}",
   "{{ '/assets/images/icons/icon-192x192.png' | relative_url }}",
   "{{ '/manifest.webmanifest' | relative_url }}",

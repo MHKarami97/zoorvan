@@ -8,7 +8,10 @@ title: خانه
   <form class="search-capsule" action="{{ '/search/' | relative_url }}" method="get">
     <input type="text" name="q" placeholder="جستجو در تجربه‌ها... (مثلاً: اسنپ، تهران، فروشگاه دیجی‌کالا)">
     <button type="submit" aria-label="جستجو">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </svg>
     </button>
   </form>
 </section>
@@ -31,12 +34,13 @@ title: خانه
   {% assign latest = site.experiences | sort: 'date' | reverse %}
   <div class="experience-grid">
     {% for exp in latest limit:9 %}
-      {% include experience-card.html exp=exp %}
+    {% include experience-card.html exp=exp %}
     {% endfor %}
   </div>
   {% if latest.size == 0 %}
   <p style="color:var(--color-foggy); text-align:center; padding:40px 0;">
-    هنوز تجربه‌ای ثبت نشده. <a href="{{ '/submit/' | relative_url }}" style="color:var(--color-rausch);">اولین نفر باشید!</a>
+    هنوز تجربه‌ای ثبت نشده. <a href="{{ '/submit/' | relative_url }}" style="color:var(--color-rausch);">اولین نفر
+      باشید!</a>
   </p>
   {% endif %}
   <div style="text-align:center; margin-top:24px;">
