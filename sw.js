@@ -1,5 +1,3 @@
----
----
 // sw.js — Service Worker برای پیشرفته‌سازی PWA (استراتژی Cache-First با Fallback به شبکه)
 // مطابق الگوی رسمی MDN Service Worker Cookbook برای offline caching
 // https://github.com/mdn/serviceworker-cookbook
@@ -14,25 +12,30 @@ const PRECACHE_URLS = [
   "{{ '/about/' | relative_url }}",
   "{{ '/offline/' | relative_url }}",
   "{{ '/assets/css/main.css' | relative_url }}",
+  "{{ '/assets/Vazirmatn-font-face.css' | relative_url }}",
   "{{ '/assets/js/main.js' | relative_url }}",
   "{{ '/assets/images/icons/icon-192x192.png' | relative_url }}",
-  "{{ '/manifest.webmanifest' | relative_url }}"
+  "{{ '/manifest.webmanifest' | relative_url }}",
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_VERSION).then((cache) => cache.addAll(PRECACHE_URLS))
+    caches.open(CACHE_VERSION).then((cache) => cache.addAll(PRECACHE_URLS)),
   );
   self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys.filter((key) => key !== CACHE_VERSION).map((key) => caches.delete(key))
-      )
-    )
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(
+          keys
+            .filter((key) => key !== CACHE_VERSION)
+            .map((key) => caches.delete(key)),
+        ),
+      ),
   );
   self.clients.claim();
 });
@@ -42,7 +45,9 @@ self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
 
-  const isHTML = req.headers.get("accept") && req.headers.get("accept").includes("text/html");
+  const isHTML =
+    req.headers.get("accept") &&
+    req.headers.get("accept").includes("text/html");
 
   if (isHTML) {
     event.respondWith(
@@ -53,8 +58,10 @@ self.addEventListener("fetch", (event) => {
           return res;
         })
         .catch(() =>
-          caches.match(req).then((cached) => cached || caches.match(OFFLINE_URL))
-        )
+          caches
+            .match(req)
+            .then((cached) => cached || caches.match(OFFLINE_URL)),
+        ),
     );
     return;
   }
@@ -69,6 +76,6 @@ self.addEventListener("fetch", (event) => {
           return res;
         })
         .catch(() => cached);
-    })
+    }),
   );
 });
